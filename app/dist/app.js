@@ -35,10 +35,17 @@ const rateLimiterParams3 = {
     options: {
         reqPerWindow: 20,
         windowLength: 10000,
-        maxUsers: 100,
     },
 };
-const rateLimiter = new RateLimiter_1.RateLimiter(rateLimiterParams3);
+//Sliding Window Counter
+const rateLimiterParams4 = {
+    type: RateLimiter_1.RateLimiterType.SlidingWindowLog,
+    options: {
+        reqPerWindow: 20,
+        windowLength: 10000,
+    },
+};
+const rateLimiter = new RateLimiter_1.RateLimiter(rateLimiterParams4);
 app.get("/", rateLimiter.rateLimit, (req, res) => {
     console.log("GET: ", ++count);
     res.status(200).send("Hello World");

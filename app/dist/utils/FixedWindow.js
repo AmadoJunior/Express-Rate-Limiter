@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _FixedWindow_reqPerWindow, _FixedWindow_windowLength, _FixedWindow_maxUsers, _FixedWindow_cache;
+var _FixedWindow_reqPerWindow, _FixedWindow_windowLength, _FixedWindow_cache;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FixedWindow = void 0;
 const AbstractRateLimitter_1 = require("./AbstractRateLimitter");
@@ -21,11 +21,9 @@ class FixedWindow extends AbstractRateLimitter_1.AbstractRateLimiter {
         //Properties
         _FixedWindow_reqPerWindow.set(this, void 0);
         _FixedWindow_windowLength.set(this, void 0);
-        _FixedWindow_maxUsers.set(this, void 0);
         _FixedWindow_cache.set(this, void 0);
         __classPrivateFieldSet(this, _FixedWindow_reqPerWindow, options.reqPerWindow, "f");
         __classPrivateFieldSet(this, _FixedWindow_windowLength, options.windowLength, "f");
-        __classPrivateFieldSet(this, _FixedWindow_maxUsers, options.maxUsers, "f");
         __classPrivateFieldSet(this, _FixedWindow_cache, new Map(), "f");
     }
     //Methods
@@ -53,4 +51,4 @@ class FixedWindow extends AbstractRateLimitter_1.AbstractRateLimiter {
     }
 }
 exports.FixedWindow = FixedWindow;
-_FixedWindow_reqPerWindow = new WeakMap(), _FixedWindow_windowLength = new WeakMap(), _FixedWindow_maxUsers = new WeakMap(), _FixedWindow_cache = new WeakMap();
+_FixedWindow_reqPerWindow = new WeakMap(), _FixedWindow_windowLength = new WeakMap(), _FixedWindow_cache = new WeakMap();

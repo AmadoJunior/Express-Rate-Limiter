@@ -53,6 +53,11 @@ export class RateLimiter {
           args.options as IFixedWindowOptions
         );
         break;
+      case RateLimiterType.SlidingWindowLog:
+        this.#limiterInstance = new SlidingWindowLog(
+          args.options as ISlidingWindowLogOptions
+        );
+        break;
       default:
         this.#limiterInstance = new TokenBucket(
           args.options as ITokenBucketOptions

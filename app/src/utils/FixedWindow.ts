@@ -4,14 +4,12 @@ import { Response } from "./interfaces";
 export interface IFixedWindowOptions {
   reqPerWindow: number;
   windowLength: number;
-  maxUsers: number;
 }
 
 export class FixedWindow extends AbstractRateLimiter {
   //Properties
   #reqPerWindow: number;
   #windowLength: number;
-  #maxUsers: number;
   #cache: Map<string, number>;
 
   //Constructor
@@ -19,7 +17,6 @@ export class FixedWindow extends AbstractRateLimiter {
     super();
     this.#reqPerWindow = options.reqPerWindow;
     this.#windowLength = options.windowLength;
-    this.#maxUsers = options.maxUsers;
     this.#cache = new Map();
   }
 

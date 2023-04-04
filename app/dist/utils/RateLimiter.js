@@ -16,6 +16,7 @@ exports.RateLimiter = exports.RateLimiterType = void 0;
 const TokenBucket_1 = require("./TokenBucket");
 const LeakingBucket_1 = require("./LeakingBucket");
 const FixedWindow_1 = require("./FixedWindow");
+const SlidingWindowLog_1 = require("./SlidingWindowLog");
 var RateLimiterType;
 (function (RateLimiterType) {
     RateLimiterType[RateLimiterType["TokenBucket"] = 0] = "TokenBucket";
@@ -55,6 +56,9 @@ class RateLimiter {
                 break;
             case RateLimiterType.FixedWindow:
                 __classPrivateFieldSet(this, _RateLimiter_limiterInstance, new FixedWindow_1.FixedWindow(args.options), "f");
+                break;
+            case RateLimiterType.SlidingWindowLog:
+                __classPrivateFieldSet(this, _RateLimiter_limiterInstance, new SlidingWindowLog_1.SlidingWindowLog(args.options), "f");
                 break;
             default:
                 __classPrivateFieldSet(this, _RateLimiter_limiterInstance, new TokenBucket_1.TokenBucket(args.options), "f");
