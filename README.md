@@ -2,10 +2,10 @@
 
 #### Implements:
 
-##### Token Bucket
+##### - Token Bucket
 
-##### Leaking Bucket
+##### - Leaking Bucket
 
-##### Fixed Window
+##### - Fixed Window
 
-##### Sliding Window Log
+##### - Sliding Window Log
