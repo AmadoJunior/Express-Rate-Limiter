@@ -25,17 +25,15 @@ class TokenBucket extends AbstractRateLimitter_1.AbstractRateLimiter {
         _TokenBucket_timer.set(this, void 0);
         __classPrivateFieldSet(this, _TokenBucket_bucketSize, options.bucketSize, "f");
         __classPrivateFieldSet(this, _TokenBucket_refillInterval, options.refillInterval, "f");
-        __classPrivateFieldSet(this, _TokenBucket_tokenBucket, [], "f");
-        for (let i = 0; i < __classPrivateFieldGet(this, _TokenBucket_bucketSize, "f"); i++) {
-            __classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f").push(1);
-        }
+        __classPrivateFieldSet(this, _TokenBucket_tokenBucket, options.bucketSize, "f");
         this.refill();
     }
     //Methods
     async handler() {
         return new Promise((resolve, reject) => {
-            if (__classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f").length > 0) {
-                __classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f").pop();
+            var _a;
+            if (__classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f") > 0) {
+                __classPrivateFieldSet(this, _TokenBucket_tokenBucket, (_a = __classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f"), _a--, _a), "f");
                 resolve();
             }
             else {
@@ -45,8 +43,9 @@ class TokenBucket extends AbstractRateLimitter_1.AbstractRateLimiter {
     }
     refill() {
         __classPrivateFieldSet(this, _TokenBucket_timer, setInterval(() => {
-            if (__classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f").length < __classPrivateFieldGet(this, _TokenBucket_bucketSize, "f")) {
-                __classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f").push(1);
+            var _a;
+            if (__classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f") < __classPrivateFieldGet(this, _TokenBucket_bucketSize, "f")) {
+                __classPrivateFieldSet(this, _TokenBucket_tokenBucket, (_a = __classPrivateFieldGet(this, _TokenBucket_tokenBucket, "f"), _a++, _a), "f");
             }
         }, __classPrivateFieldGet(this, _TokenBucket_refillInterval, "f")), "f");
     }

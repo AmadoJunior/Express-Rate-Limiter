@@ -9,7 +9,7 @@ export class TokenBucket extends AbstractRateLimiter {
   //Properties
   #bucketSize: number;
   #refillInterval: number;
-  #tokenBucket: number[];
+  #tokenBucket: number;
   #timer: NodeJS.Timer;
 
   //Constructor
@@ -17,18 +17,15 @@ export class TokenBucket extends AbstractRateLimiter {
     super();
     this.#bucketSize = options.bucketSize;
     this.#refillInterval = options.refillInterval;
-    this.#tokenBucket = [];
-    for (let i = 0; i < this.#bucketSize; i++) {
-      this.#tokenBucket.push(1);
-    }
+    this.#tokenBucket = options.bucketSize;
     this.refill();
   }
 
   //Methods
   async handler(): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (this.#tokenBucket.length > 0) {
-        this.#tokenBucket.pop();
+      if (this.#tokenBucket > 0) {
+        this.#tokenBucket--;
         resolve();
       } else {
         reject();
@@ -38,8 +35,8 @@ export class TokenBucket extends AbstractRateLimiter {
 
   refill(): void {
     this.#timer = setInterval(() => {
-      if (this.#tokenBucket.length < this.#bucketSize) {
-        this.#tokenBucket.push(1);
+      if (this.#tokenBucket < this.#bucketSize) {
+        this.#tokenBucket++;
       }
     }, this.#refillInterval);
   }
