@@ -36,7 +36,8 @@ class RateLimiter {
         this.rateLimit = async (req, res, next) => {
             try {
                 //TODO
-                await __classPrivateFieldGet(this, _RateLimiter_limiterInstance, "f").handler();
+                const remoteAddress = req.header("x-forwarded-for") || req.ip;
+                await __classPrivateFieldGet(this, _RateLimiter_limiterInstance, "f").handler(res, remoteAddress, next);
                 next();
             }
             catch (err) {

@@ -16,8 +16,10 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.12.7",
     "@microsoft/tsdoc": "^0.13.2",
+    "express": "^4.17.1",
+    "lru-cache": "^8.0.4",
     "ts-node": "^10.9.1",
-    "express": "^4.17.1"
+    "uuid": "^9.0.0"
   },
   "author": "Amado Dominguez",
   "license": "UNLICENSED"
