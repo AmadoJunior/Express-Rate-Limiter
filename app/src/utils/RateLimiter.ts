@@ -75,7 +75,7 @@ export class RateLimiter {
       //TODO
       const remoteAddress =
         (req.header("x-forwarded-for") as string) || (req.ip as string);
-      await this.#limiterInstance.handler(res, remoteAddress, next);
+      await this.#limiterInstance.handler(res, remoteAddress);
       next();
     } catch (err) {
       console.error(err);

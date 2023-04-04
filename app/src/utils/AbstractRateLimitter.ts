@@ -1,1 +1,4 @@
-export abstract class AbstractRateLimiter {}
+import { Response } from "./interfaces";
+export abstract class AbstractRateLimiter {
+  abstract handler(res: Response, token: string): Promise<void>;
+}

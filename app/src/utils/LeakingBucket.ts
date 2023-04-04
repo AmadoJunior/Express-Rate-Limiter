@@ -30,11 +30,7 @@ export class LeakingBucket extends AbstractRateLimiter {
     this.#uid = uuidv4();
     this.dequeueInterval();
   }
-  async handler(
-    res: Response,
-    token: string,
-    next: NextFunction
-  ): Promise<void> {
+  async handler(res: Response, token: string): Promise<void> {
     return new Promise((resolve, reject) => {
       let queue = this.#queueCache.get(token);
       if (queue === undefined) {
@@ -42,7 +38,7 @@ export class LeakingBucket extends AbstractRateLimiter {
         this.#queueCache.set(token, queue);
       }
       if (queue.length < this.#queueSize) {
-        queue.enqueue(next);
+        queue.enqueue(1);
         this.#queueCache.set(token, queue);
       }
       const currentUsage = queue.length;
@@ -61,11 +57,6 @@ export class LeakingBucket extends AbstractRateLimiter {
     this.#timer = setInterval(() => {
       this.#queueCache.forEach((queue, key, cache) => {
         if (queue.length > 0) {
-          console.log(
-            `Dequeuing ${this.#flowRate} requests from ${key}: ${
-              queue.length
-            }...`
-          );
           queue.dequeue();
         }
 
