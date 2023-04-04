@@ -17,19 +17,26 @@ export class TokenBucket extends AbstractRateLimiter {
     super();
     this.#bucketSize = options.bucketSize;
     this.#refillInterval = options.refillInterval;
+    this.#tokenBucket = [];
+    for (let i = 0; i < this.#bucketSize; i++) {
+      this.#tokenBucket.push(1);
+    }
+    this.refill();
   }
 
   //Methods
-  handler() {
-    if (this.#tokenBucket.length > 0) {
-      this.#tokenBucket.pop();
-      return true;
-    } else {
-      return false;
-    }
+  async handler(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.#tokenBucket.length > 0) {
+        this.#tokenBucket.pop();
+        resolve();
+      } else {
+        reject();
+      }
+    });
   }
 
-  refill() {
+  refill(): void {
     this.#timer = setInterval(() => {
       if (this.#tokenBucket.length < this.#bucketSize) {
         this.#tokenBucket.push(1);

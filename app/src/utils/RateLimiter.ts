@@ -68,7 +68,8 @@ export class RateLimiter {
   rateLimit = async (req: Request, res: Response, next: NextFunction) => {
     try {
       //TODO
-      this.#limiterInstance.handler() ? next() : null;
+      await this.#limiterInstance.handler();
+      next();
     } catch (err) {
       console.error(err);
       const [statusCode, errMsg] = this.handleError(err);
