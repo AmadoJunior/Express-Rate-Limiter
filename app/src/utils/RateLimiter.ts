@@ -2,10 +2,6 @@ import { NextFunction, Request, Response } from "./interfaces";
 import { TokenBucket, ITokenBucketOptions } from "./TokenBucket";
 import { LeakingBucket, ILeakingBucketOptions } from "./LeakingBucket";
 import { FixedWindow, IFixedWindowOptions } from "./FixedWindow";
-import {
-  SlidingWindowCounter,
-  ISlidingWindowCounterOptions,
-} from "./SlidingWindowCounter";
 import { SlidingWindowLog, ISlidingWindowLogOptions } from "./SlidingWindowLog";
 
 export enum RateLimiterType {
@@ -22,7 +18,6 @@ export interface IRateLimiterParams {
     | ITokenBucketOptions
     | ILeakingBucketOptions
     | IFixedWindowOptions
-    | ISlidingWindowCounterOptions
     | ISlidingWindowLogOptions;
 }
 
@@ -32,7 +27,6 @@ export class RateLimiter {
     | TokenBucket
     | LeakingBucket
     | FixedWindow
-    | SlidingWindowCounter
     | SlidingWindowLog;
 
   //Constructor
