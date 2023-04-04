@@ -30,7 +30,16 @@ const rateLimiterParams2: IRateLimiterParams = {
     maxQueues: 100,
   },
 };
-const rateLimiter = new RateLimiter(rateLimiterParams2);
+//Fixed Window
+const rateLimiterParams3: IRateLimiterParams = {
+  type: RateLimiterType.FixedWindow,
+  options: {
+    reqPerWindow: 20,
+    windowLength: 10000,
+    maxUsers: 100,
+  },
+};
+const rateLimiter = new RateLimiter(rateLimiterParams3);
 app.get("/", rateLimiter.rateLimit, (req, res) => {
   console.log("GET: ", ++count);
   res.status(200).send("Hello World");
